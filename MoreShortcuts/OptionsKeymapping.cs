@@ -5,6 +5,8 @@ using ColossalFramework.UI;
 using System.Collections.Generic;
 using UnityEngine;
 
+using UIUtils = SamsamTS.UIUtils;
+
 namespace MoreShortcuts
 {
     public class OptionsKeymapping : UICustomControl
@@ -33,6 +35,13 @@ namespace MoreShortcuts
             }
         }
 
+        private void OnDestroy()
+        {
+            instance = null;
+            m_EditingBinding = null;
+            m_components.Clear();
+        }
+
         public static void RefreshShortcutsList()
         {
             UIComponent[] components = new UIComponent[instance.component.components.Count];
@@ -53,7 +62,7 @@ namespace MoreShortcuts
 
             UIButton uIButton = uIPanel.Find<UIButton>("Binding");
 
-            uIButton = UnityEngine.Object.Instantiate<GameObject>(uIButton.gameObject).GetComponent<UIButton>();
+            //uIButton = UnityEngine.Object.Instantiate<GameObject>(uIButton.gameObject).GetComponent<UIButton>();
             m_components.Add(uIButton);
             parent.AttachUIComponent(uIButton.gameObject);
 
@@ -66,7 +75,7 @@ namespace MoreShortcuts
                 uIButton.text = Locale.Get("KEYNAME", ((InputKey)0).ToString());
             uIButton.objectUserData = shortcut;
 
-            GameObject.DestroyImmediate(uIPanel);
+            //GameObject.DestroyImmediate(uIPanel);
 
             return uIButton;
         }
@@ -95,7 +104,7 @@ namespace MoreShortcuts
             uIButton.stringUserData = "MoreShortcuts";
 
             UIButton delete = uIPanel.AddUIComponent<UIButton>();
-            delete.atlas = GUI.UIUtils.GetAtlas("Ingame");
+            delete.atlas = UIUtils.GetAtlas("Ingame");
             delete.normalBgSprite = "buttonclose";
             delete.hoveredBgSprite = "buttonclosehover";
             delete.pressedBgSprite = "buttonclosepressed";

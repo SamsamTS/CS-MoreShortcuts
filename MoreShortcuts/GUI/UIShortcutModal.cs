@@ -3,6 +3,8 @@ using ColossalFramework.UI;
 
 using UnityEngine;
 
+using UIUtils = SamsamTS.UIUtils;
+
 namespace MoreShortcuts.GUI
 {
     public class UIShortcutModal : UIPanel

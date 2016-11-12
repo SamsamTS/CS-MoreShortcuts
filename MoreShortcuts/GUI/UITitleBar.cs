@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using ColossalFramework.UI;
 
+using UIUtils = SamsamTS.UIUtils;
+
 namespace MoreShortcuts.GUI
 {
     public class UITitleBar : UIPanel

@@ -88,7 +88,7 @@ namespace MoreShortcuts
 
                 if (disableCapture ||
                     GUI.UIShortcutModal.instance.isVisible ||
-                    (!Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.RightAlt) && !Input.GetKey(KeyCode.AltGr)) ||
+                    !e.alt ||
                     hovered == null)
                 {
                     HidePanel();

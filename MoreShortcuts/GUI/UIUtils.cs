@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 using UnityEngine;
 using ColossalFramework.UI;
 
-namespace MoreShortcuts.GUI
+namespace SamsamTS
 {
     public class UIUtils
     {
@@ -130,20 +130,25 @@ namespace MoreShortcuts.GUI
             return dropDown;
         }
 
+        private static UIColorField _colorFIeldTemplate;
+
         public static UIColorField CreateColorField(UIComponent parent)
         {
             // Creating a ColorField from scratch is tricky. Cloning an existing one instead.
 
-            // Get the LineTemplate (PublicTransportDetailPanel)
-            UICustomControl template = UITemplateManager.Get<UICustomControl>("LineTemplate");
-            if (template == null) return null;
+            if (_colorFIeldTemplate == null)
+            {
+                // Get the LineTemplate (PublicTransportDetailPanel)
+                UIComponent template = UITemplateManager.Get("LineTemplate");
+                if (template == null) return null;
 
-            // Extract the ColorField
-            UIColorField colorField = template.Find<UIColorField>("LineColor");
+                // Extract the ColorField
+                _colorFIeldTemplate = template.Find<UIColorField>("LineColor");
+                if (_colorFIeldTemplate == null) return null;
+            }
+
+            UIColorField colorField = UnityEngine.Object.Instantiate<GameObject>(_colorFIeldTemplate.gameObject).GetComponent<UIColorField>();
             parent.AttachUIComponent(colorField.gameObject);
-
-            // Destroy unneeded template
-            GameObject.DestroyImmediate(template);
 
             colorField.size = new Vector2(40f, 26f);
             colorField.pickerPosition = UIColorField.ColorPickerPosition.LeftAbove;
