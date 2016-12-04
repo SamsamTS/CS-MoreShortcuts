@@ -177,6 +177,7 @@ namespace MoreShortcuts.GUI
             m_componentName.tooltip = string.Join(">", shortcut.path);
             m_binding.objectUserData = new Shortcut(shortcut);
             m_binding.text = SavedInputKey.ToLocalizedString("KEYNAME", shortcut.inputKey);
+            m_binding.relativePosition = m_usePath.relativePosition - new Vector3(0, m_binding.height + 15);
             m_usePath.isChecked = shortcut.usePath;
             m_onlyVisible.isChecked = shortcut.onlyVisible;
 
