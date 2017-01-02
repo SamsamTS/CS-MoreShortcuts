@@ -16,6 +16,7 @@ namespace MoreShortcuts
         private bool m_panelIsModal = false;
 
         public static SavedBool disableCapture = new SavedBool("disableCapture", MoreShortcuts.settingsFileName, false, true);
+        public static SavedInt captureKey = new SavedInt("captureKey", MoreShortcuts.settingsFileName, 0, true);
 
         public static MoreShortcuts instance;
 
@@ -88,7 +89,7 @@ namespace MoreShortcuts
 
                 if (disableCapture ||
                     GUI.UIShortcutModal.instance.isVisible ||
-                    !e.alt ||
+                    !IsCaptureKeyDown(e) ||
                     hovered == null)
                 {
                     HidePanel();
@@ -128,6 +129,27 @@ namespace MoreShortcuts
                 DebugUtils.Log("OnGUI failed");
                 DebugUtils.LogException(e);
             }
+        }
+
+        private bool IsCaptureKeyDown(Event e)
+        {
+            switch(MoreShortcuts.captureKey.value)
+            {
+                case 1:
+                    return e.control;
+                case 2:
+                    return e.shift;
+                case 3:
+                    return e.alt && e.control;
+                case 4:
+                    return e.alt && e.shift;
+                case 5:
+                    return e.control && e.shift;
+                case 6:
+                    return e.control && e.alt && e.shift;
+            }
+
+            return e.alt;
         }
 
 

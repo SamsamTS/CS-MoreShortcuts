@@ -34,11 +34,20 @@ namespace MoreShortcuts
             {
                 UIHelper group = helper.AddGroup(Name) as UIHelper;
 
-                UICheckBox checkBox = (UICheckBox)group.AddCheckbox("Disable button capture (Alt key)", MoreShortcuts.disableCapture.value, (b) =>
+                UICheckBox checkBox = (UICheckBox)group.AddCheckbox("Disable button capture", MoreShortcuts.disableCapture.value, (b) =>
                 {
                     MoreShortcuts.disableCapture.value = b;
                 });
-                checkBox.tooltip = "If checked, you will not be able to add new shortcuts.\nThe Alt key will no longer highlight buttons.\n";
+                checkBox.tooltip = "If checked, you will not be able to add new shortcuts.\nThe capture key will no longer highlight buttons.\n";
+
+                group.AddSpace(10);
+
+
+                UIDropDown dropDown = (UIDropDown)group.AddDropdown("Capture key:", new string[] { "Alt", "Ctrl", "Shift", "Alt + Ctrl", "Alt + Shift", "Ctrl + Shift", "Ctrl + Alt + Shift" }, MoreShortcuts.captureKey.value, (b) =>
+                {
+                    MoreShortcuts.captureKey.value = b;
+                });
+                dropDown.tooltip = "Select the desired capture key combination";
 
                 group.AddSpace(10);
 
@@ -55,6 +64,6 @@ namespace MoreShortcuts
             }
         }
 
-        public const string version = "1.0.2";
+        public const string version = "1.1.0";
     }
 }
